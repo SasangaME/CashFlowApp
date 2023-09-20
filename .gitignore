@@ -1,1 +1,4 @@
-/CashFlowApp.API/obj/project.nuget.cache
+*.cache
+**/bin
+**/obj
+.idea
