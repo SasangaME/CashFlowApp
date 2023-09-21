@@ -8,8 +8,20 @@
 
     <ItemGroup>
       <Folder Include="Configs\" />
-      <Folder Include="Db\" />
       <Folder Include="Repos\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CashFlowApp.Models\CashFlowApp.Models.csproj" />
     </ItemGroup>
 
 </Project>
