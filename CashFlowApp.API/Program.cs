@@ -1,3 +1,6 @@
+using AutoMapper;
+using CashFlowApp.API.Configs;
+using CashFlowApp.Models.Mappings;
 using CashFlowApp.Repositories.Db;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<CashFlowContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CashFlow")));
+
+var mapperConfig = new MapperConfiguration(config => { config.AddProfile(new ApplicationProfile()); });
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddConfigurationServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

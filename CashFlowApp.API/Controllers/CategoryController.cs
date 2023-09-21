@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using CashFlowApp.Models.Entities;
 using CashFlowApp.Repositories.Db;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CashFlowApp.API.Controllers
 {
@@ -25,8 +20,8 @@ namespace CashFlowApp.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> Get()
         {
-            var categories = await _dbContext.Categories.ToListAsync();
-            return Ok(categories);
+            // var categories = await _dbContext.Categories.ToListAsync();
+            return Ok(null);
         }
 
         // GET: api/Category/5
