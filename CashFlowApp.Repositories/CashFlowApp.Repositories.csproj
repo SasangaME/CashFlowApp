@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CashFlowApp.Db\CashFlowApp.Db.csproj" />
       <ProjectReference Include="..\CashFlowApp.Models\CashFlowApp.Models.csproj" />
     </ItemGroup>
 
