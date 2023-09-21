@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.10" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
 
@@ -16,6 +17,18 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Middleware\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CashFlowApp.BusinessLogic\CashFlowApp.BusinessLogic.csproj" />
+      <ProjectReference Include="..\CashFlowApp.Db\CashFlowApp.Db.csproj" />
+      <ProjectReference Include="..\CashFlowApp.Models\CashFlowApp.Models.csproj" />
+      <ProjectReference Include="..\CashFlowApp.Repositories\CashFlowApp.Repositories.csproj" />
+      <ProjectReference Include="..\CashFlowApp.Utils\CashFlowApp.Utils.csproj" />
     </ItemGroup>
 
 </Project>
