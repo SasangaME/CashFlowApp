@@ -1,5 +1,6 @@
 using AutoMapper;
 using CashFlowApp.Models.DTOs;
+using CashFlowApp.Models.Entities;
 using CashFlowApp.Repositories.Repos;
 using Microsoft.Extensions.Logging;
 
@@ -10,7 +11,7 @@ public interface ICategoryService
     Task<IEnumerable<CategoryDto>> FindAll();
     Task<CategoryDto> FindById(int id);
     Task<CategoryDto> Create(CategoryDto request);
-    Task<CategoryDto> Update(CategoryDto request);
+    Task<CategoryDto> Update(int id, CategoryDto request);
 }
 
 public class CategoryService : ICategoryService
@@ -33,18 +34,24 @@ public class CategoryService : ICategoryService
         return _mapper.Map<IEnumerable<CategoryDto>>(categories);
     }
 
-    public Task<CategoryDto> FindById(int id)
+    public async Task<CategoryDto> FindById(int id)
     {
-        throw new NotImplementedException();
+        var category = await _categoryRepository.FindById(id);
+        return _mapper.Map<CategoryDto>(category);
     }
 
-    public Task<CategoryDto> Create(CategoryDto request)
+    public async Task<CategoryDto> Create(CategoryDto request)
     {
-        throw new NotImplementedException();
+        Category category = _mapper.Map<Category>(request);
+        int id = await _categoryRepository.Create(category);
+        request.Id = id;
+        return request;
     }
 
-    public Task<CategoryDto> Update(CategoryDto request)
+    public async Task<CategoryDto> Update(int id, CategoryDto request)
     {
-        throw new NotImplementedException();
+        Category category = _mapper.Map<Category>(request);
+        await _categoryRepository.Update(category);
+        return request;
     }
 }
