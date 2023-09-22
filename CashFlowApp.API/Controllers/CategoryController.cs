@@ -1,6 +1,6 @@
-
+using CashFlowApp.BusinessLogic.Services;
+using CashFlowApp.Models.DTOs;
 using CashFlowApp.Models.Entities;
-using CashFlowApp.Repositories.Db;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlowApp.API.Controllers
@@ -9,41 +9,43 @@ namespace CashFlowApp.API.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly CashFlowContext _dbContext;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(CashFlowContext dbContext)
+        public CategoryController(ICategoryService categoryService)
         {
-            _dbContext = dbContext;
+            _categoryService = categoryService;
         }
 
         // GET: api/Category
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> Get()
         {
-            // var categories = await _dbContext.Categories.ToListAsync();
-            return Ok(null);
+            var categories = await _categoryService.FindAll();
+            return Ok(categories);
         }
 
         // GET: api/Category/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CategoryDto>> Get(int id)
         {
-            return "value";
+            var category = await _categoryService.FindById(id);
+            return Ok(category);
         }
 
         // POST: api/Category
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Category category)
+        public async Task<ActionResult> Post([FromBody] CategoryDto request)
         {
-            await _dbContext.Categories.AddAsync(category);
-            await _dbContext.SaveChangesAsync();
-            return Ok();
+            var response = await _categoryService.Create(request);
+            return Ok(response);
         }
 
         // PUT: api/Category/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<CategoryDto>> Put(int id, [FromBody] CategoryDto request)
         {
+            var response = await _categoryService.Update(id, request);
+            return Ok(response);
         }
 
         // DELETE: api/Category/5

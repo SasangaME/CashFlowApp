@@ -1,4 +1,6 @@
 using CashFlowApp.Models.Entities;
+using CashFlowApp.Repositories.Db;
+using Microsoft.EntityFrameworkCore;
 
 namespace CashFlowApp.Repositories.Repos;
 
@@ -12,23 +14,33 @@ public interface ICategoryRepository
 
 public class CategoryRepository : ICategoryRepository
 {
-    public Task<IEnumerable<Category>> FindAll()
+    private readonly CashFlowContext _dbContext;
+
+    public CategoryRepository(CashFlowContext dbContext)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
     }
 
-    public Task<Category?> FindById(int id)
+    public async Task<IEnumerable<Category>> FindAll()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Categories.ToListAsync();
     }
 
-    public Task<int> Create(Category category)
+    public async Task<Category?> FindById(int id)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Categories.FindAsync(id);
     }
 
-    public Task Update(Category category)
+    public async Task<int> Create(Category category)
     {
-        throw new NotImplementedException();
+        await _dbContext.Categories.AddAsync(category);
+        await _dbContext.SaveChangesAsync();
+        return category.Id;
+    }
+
+    public async Task Update(Category category)
+    {
+        _dbContext.Entry(category).State = EntityState.Modified;
+        await _dbContext.SaveChangesAsync();
     }
 }
