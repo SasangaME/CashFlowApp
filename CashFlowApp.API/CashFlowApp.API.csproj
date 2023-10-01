@@ -20,10 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Middleware\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\CashFlowApp.BusinessLogic\CashFlowApp.BusinessLogic.csproj" />
       <ProjectReference Include="..\CashFlowApp.Db\CashFlowApp.Db.csproj" />
       <ProjectReference Include="..\CashFlowApp.Models\CashFlowApp.Models.csproj" />

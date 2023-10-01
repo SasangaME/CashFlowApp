@@ -1,3 +1,4 @@
+using AutoMapper;
 using CashFlowApp.BusinessLogic.Services;
 using CashFlowApp.Models.DTOs;
 using CashFlowApp.Models.Entities;
@@ -10,18 +11,20 @@ namespace CashFlowApp.API.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
+        private IMapper _mapper;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
+            _mapper = mapper;
         }
 
         // GET: api/Category
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> Get()
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
         {
             var categories = await _categoryService.FindAll();
-            return Ok(categories);
+            return Ok(_mapper.Map<IEnumerable<CategoryDto>>(categories));
         }
 
         // GET: api/Category/5
@@ -29,23 +32,23 @@ namespace CashFlowApp.API.Controllers
         public async Task<ActionResult<CategoryDto>> Get(int id)
         {
             var category = await _categoryService.FindById(id);
-            return Ok(category);
+            return Ok(_mapper.Map<CategoryDto>(category));
         }
 
         // POST: api/Category
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CategoryDto request)
+        public async Task<ActionResult<CategoryDto>> Post([FromBody] CategoryDto request)
         {
-            var response = await _categoryService.Create(request);
-            return Ok(response);
+            var response = await _categoryService.Create(_mapper.Map<Category>(request));
+            return Ok(_mapper.Map<CategoryDto>(response));
         }
 
         // PUT: api/Category/5
         [HttpPut("{id}")]
         public async Task<ActionResult<CategoryDto>> Put(int id, [FromBody] CategoryDto request)
         {
-            var response = await _categoryService.Update(id, request);
-            return Ok(response);
+            var response = await _categoryService.Update(id, _mapper.Map<Category>(request));
+            return Ok(_mapper.Map<CategoryDto>(response));
         }
 
         // DELETE: api/Category/5
