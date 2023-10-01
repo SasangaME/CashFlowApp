@@ -1,5 +1,5 @@
 using AutoMapper;
-using CashFlowApp.Models.DTOs;
+using CashFlowApp.BusinessLogic.Exceptions;
 using CashFlowApp.Models.Entities;
 using CashFlowApp.Repositories.Repos;
 using Microsoft.Extensions.Logging;
@@ -8,10 +8,10 @@ namespace CashFlowApp.BusinessLogic.Services;
 
 public interface ICategoryService
 {
-    Task<IEnumerable<CategoryDto>> FindAll();
-    Task<CategoryDto> FindById(int id);
-    Task<CategoryDto> Create(CategoryDto request);
-    Task<CategoryDto> Update(int id, CategoryDto request);
+    Task<IEnumerable<Category>> FindAll();
+    Task<Category> FindById(int id);
+    Task<Category> Create(Category category);
+    Task<Category> Update(int id, Category request);
 }
 
 public class CategoryService : ICategoryService
@@ -27,31 +27,34 @@ public class CategoryService : ICategoryService
         _logger = logger;
     }
 
-    public async Task<IEnumerable<CategoryDto>> FindAll()
+    public async Task<IEnumerable<Category>> FindAll()
     {
         var categories = await _categoryRepository.FindAll();
         _logger.LogInformation("categories are retrieved");
-        return _mapper.Map<IEnumerable<CategoryDto>>(categories);
+        return categories;
     }
 
-    public async Task<CategoryDto> FindById(int id)
+    public async Task<Category> FindById(int id)
     {
         var category = await _categoryRepository.FindById(id);
-        return _mapper.Map<CategoryDto>(category);
+        if (category == null)
+            throw new NotFoundException($"category not found for id: {id}");
+        _logger.LogInformation($"category retrieved for id: {id}");
+        return category;
     }
 
-    public async Task<CategoryDto> Create(CategoryDto request)
+    public async Task<Category> Create(Category category)
     {
-        Category category = _mapper.Map<Category>(request);
-        int id = await _categoryRepository.Create(category);
-        request.Id = id;
-        return request;
+        await _categoryRepository.Create(category);
+        _logger.LogInformation($"new category saved for id: {category.Id}");
+        return category;
     }
 
-    public async Task<CategoryDto> Update(int id, CategoryDto request)
+    public async Task<Category> Update(int id, Category category)
     {
-        Category category = _mapper.Map<Category>(request);
+        _ = await FindById(id);
         await _categoryRepository.Update(category);
-        return request;
+        _logger.LogInformation($"category updated for id: {id}");
+        return category;
     }
 }

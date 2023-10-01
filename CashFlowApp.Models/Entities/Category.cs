@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CashFlowApp.Models.Entities;
 
-public class Category
+public class Category : BaseEntity
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
 }
