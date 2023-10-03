@@ -52,8 +52,13 @@ public class CategoryService : ICategoryService
 
     public async Task<Category> Update(int id, Category category)
     {
-        _ = await FindById(id);
-        await _categoryRepository.Update(category);
+        var existingCategory = await FindById(id);
+        existingCategory.Name = category.Name;
+        existingCategory.Description = category.Description;
+        existingCategory.UpdatedAt = DateTime.Now;
+        existingCategory.UpdatedBy = 0;
+        
+        await _categoryRepository.Update(existingCategory);
         _logger.LogInformation($"category updated for id: {id}");
         return category;
     }

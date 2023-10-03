@@ -11,12 +11,14 @@ namespace CashFlowApp.API.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
+        private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(ICategoryService categoryService, IMapper mapper)
+        public CategoryController(ICategoryService categoryService, IMapper mapper, ILogger<CategoryController> logger)
         {
             _categoryService = categoryService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // GET: api/Category
@@ -24,6 +26,7 @@ namespace CashFlowApp.API.Controllers
         public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
         {
             var categories = await _categoryService.FindAll();
+            _logger.LogInformation("category list retrieved");
             return Ok(_mapper.Map<IEnumerable<CategoryDto>>(categories));
         }
 
@@ -32,6 +35,7 @@ namespace CashFlowApp.API.Controllers
         public async Task<ActionResult<CategoryDto>> Get(int id)
         {
             var category = await _categoryService.FindById(id);
+            _logger.LogInformation($"category retrieved for id: {id}");
             return Ok(_mapper.Map<CategoryDto>(category));
         }
 
@@ -40,6 +44,7 @@ namespace CashFlowApp.API.Controllers
         public async Task<ActionResult<CategoryDto>> Post([FromBody] CategoryDto request)
         {
             var response = await _categoryService.Create(_mapper.Map<Category>(request));
+            _logger.LogInformation($"new category created for id: {response.Id}");
             return Ok(_mapper.Map<CategoryDto>(response));
         }
 
@@ -48,6 +53,7 @@ namespace CashFlowApp.API.Controllers
         public async Task<ActionResult<CategoryDto>> Put(int id, [FromBody] CategoryDto request)
         {
             var response = await _categoryService.Update(id, _mapper.Map<Category>(request));
+            _logger.LogInformation($"category updated for id: {id}");
             return Ok(_mapper.Map<CategoryDto>(response));
         }
 
