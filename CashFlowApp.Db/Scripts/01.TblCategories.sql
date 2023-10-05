@@ -1,11 +1,10 @@
-CREATE TABLE [dbo].[Categories] (
-    [Id]          INT            IDENTITY (1, 1) NOT NULL,
-    [Name]        NVARCHAR (150) NOT NULL,
-    [Description] NVARCHAR (250) NULL,
-    [CreatedAt]   DATETIME       NULL,
-    [CreatedBy]   INT            NULL,
-    [UpdatedAt]   DATETIME       NULL,
-    [UpdatedBy]   INT            NULL,
-    CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED ([Id] ASC)
+CREATE TABLE [Categories] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NULL,
+    [CreatedAt] datetime2 NULL,
+    [CreatedBy] int NULL,
+    [UpdatedAt] datetime2 NULL,
+    [UpdatedBy] int NULL,
+    CONSTRAINT [PK_Categories] PRIMARY KEY ([Id])
     );
-

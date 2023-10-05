@@ -40,7 +40,7 @@ public class CategoryService : ICategoryService
         if (category == null)
             throw new NotFoundException($"category not found for id: {id}");
         _logger.LogInformation($"category retrieved for id: {id}");
-        return category;
+         return category;
     }
 
     public async Task<Category> Create(Category category)
