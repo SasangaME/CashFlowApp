@@ -1,6 +1,7 @@
 using AutoMapper;
 using CashFlowApp.API.Configs;
 using CashFlowApp.API.Middleware;
+using CashFlowApp.BusinessLogic.Services;
 using CashFlowApp.Models.Mappings;
 using CashFlowApp.Repositories.Db;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,8 @@ var mapperConfig = new MapperConfiguration(config => { config.AddProfile(new App
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddTransient<ExceptionHandlerMiddleware>();
+
+builder.Services.AddHttpClient<ITodoService, TodoService>();
 
 builder.Services.AddConfigurationServices();
 

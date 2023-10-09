@@ -8,6 +8,7 @@ public static class ServiceResolution
     public static IServiceCollection AddBlServices(this IServiceCollection services)
     {
         return services
-            .AddScoped<ICategoryService, CategoryService>();
+            .AddScoped<ICategoryService, CategoryService>()
+            .AddScoped<ITodoService, TodoService>();
     }
 }
