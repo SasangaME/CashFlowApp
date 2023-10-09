@@ -32,7 +32,7 @@ public class CategoryServiceTests
     }
 
     [Fact]
-    public async Task GetAllCategories_ReturnCategoryList()
+    public async Task GetAllCategories_ReturnsCategoryList()
     {
         var data = GetCategories();
         _mockRepository.Setup(m => m.FindAll()).ReturnsAsync(data);
@@ -42,5 +42,48 @@ public class CategoryServiceTests
         
         Assert.NotNull(result);
         Assert.Equal(2, result.Count());
+    }
+
+    [Fact]
+    public async Task GetCategory_ReturnsCategory()
+    {
+        var id = 1;
+        var data = GetCategories().FirstOrDefault(s => s.Id == id);
+        _mockRepository.Setup(m => m.FindById(id)).ReturnsAsync(data);
+        ICategoryService categoryService = new CategoryService(_mockRepository.Object, _mapper);
+
+        var result = await categoryService.FindById(id);
+        
+        Assert.NotNull(result);
+        Assert.Equal(id, result.Id);
+    }
+
+    [Fact]
+    public async Task CreateCategory_ReturnsCategory()
+    {
+        var data = GetCategories().FirstOrDefault();
+        var id = 1;
+        _mockRepository.Setup(repo => repo.Create(data)).ReturnsAsync(id);
+        ICategoryService categoryService = new CategoryService(_mockRepository.Object, _mapper);
+
+        var result = await categoryService.Create(data);
+        
+        Assert.NotNull(result);
+        Assert.Equal(data.Name, result.Name);
+    }
+
+    [Fact]
+    public async Task UpadteCategory_ReturnsCategory()
+    {
+        var data = GetCategories().FirstOrDefault();
+        var id = 1;
+        _mockRepository.Setup(m => m.FindById(id)).ReturnsAsync(data);
+        _mockRepository.Setup(repo => repo.Update(data));
+        ICategoryService categoryService = new CategoryService(_mockRepository.Object, _mapper);
+
+        var result = await categoryService.Update(id, data);
+        
+        Assert.NotNull(result);
+        Assert.Equal(data.Name, result.Name);
     }
 }
