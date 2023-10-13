@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlowApp.API.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
@@ -23,6 +25,7 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Category
         [HttpGet]
+        // [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
         {
             var categories = await _categoryService.FindAll();
