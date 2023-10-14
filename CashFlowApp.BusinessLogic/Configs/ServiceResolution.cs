@@ -9,6 +9,7 @@ public static class ServiceResolution
     {
         return services
             .AddScoped<ICategoryService, CategoryService>()
-            .AddScoped<ITodoService, TodoService>();
+            .AddScoped<ITodoService, TodoService>()
+            .AddScoped<IRoleService, RoleService>();
     }
 }
