@@ -1,4 +1,4 @@
-namespace CashFlowApp.BusinessLogic.Tests;
+namespace CashFlowApp.BusinessLogic.Tests.Services;
 
 using AutoMapper;
 using CashFlowApp.BusinessLogic.Services;
@@ -9,20 +9,8 @@ using Moq;
 
 public class CategoryServiceTests
 {
-    private readonly Mock<ICategoryRepository> _mockRepository;
-    private readonly IMapper _mapper;
-
-    public CategoryServiceTests()
-    {
-        _mockRepository = new Mock<ICategoryRepository>();
-        var mapperConfig = new MapperConfiguration(config
-            =>
-        {
-            config.AddProfile(new ApplicationProfile());
-        });
-        _mapper = mapperConfig.CreateMapper();
-    }
-
+    private readonly Mock<ICategoryRepository> _mockRepository = new();
+    
     private IEnumerable<Category> GetCategories()
     {
         List<Category> categories = new();
@@ -36,7 +24,7 @@ public class CategoryServiceTests
     {
         var data = GetCategories();
         _mockRepository.Setup(m => m.FindAll()).ReturnsAsync(data);
-        ICategoryService categoryService = new CategoryService(_mockRepository.Object, _mapper);
+        ICategoryService categoryService = new CategoryService(_mockRepository.Object);
         
         var result = await categoryService.FindAll();
         
@@ -50,7 +38,7 @@ public class CategoryServiceTests
         var id = 1;
         var data = GetCategories().FirstOrDefault(s => s.Id == id);
         _mockRepository.Setup(m => m.FindById(id)).ReturnsAsync(data);
-        ICategoryService categoryService = new CategoryService(_mockRepository.Object, _mapper);
+        ICategoryService categoryService = new CategoryService(_mockRepository.Object);
 
         var result = await categoryService.FindById(id);
         
@@ -64,7 +52,7 @@ public class CategoryServiceTests
         var data = GetCategories().FirstOrDefault();
         var id = 1;
         _mockRepository.Setup(repo => repo.Create(data)).ReturnsAsync(id);
-        ICategoryService categoryService = new CategoryService(_mockRepository.Object, _mapper);
+        ICategoryService categoryService = new CategoryService(_mockRepository.Object);
 
         var result = await categoryService.Create(data);
         
@@ -79,7 +67,7 @@ public class CategoryServiceTests
         var id = 1;
         _mockRepository.Setup(m => m.FindById(id)).ReturnsAsync(data);
         _mockRepository.Setup(repo => repo.Update(data));
-        ICategoryService categoryService = new CategoryService(_mockRepository.Object, _mapper);
+        ICategoryService categoryService = new CategoryService(_mockRepository.Object);
 
         var result = await categoryService.Update(id, data);
         

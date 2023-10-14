@@ -4,6 +4,7 @@ using CashFlowApp.Repositories.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CashFlowApp.Db.Migrations
 {
     [DbContext(typeof(CashFlowContext))]
-    partial class CashFlowContextModelSnapshot : ModelSnapshot
+    [Migration("20231013180810_user_entity")]
+    partial class user_entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,18 +132,23 @@ namespace CashFlowApp.Db.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("CashFlowApp.Models.Entities.User", b =>
                 {
                     b.HasOne("CashFlowApp.Models.Entities.Role", "Role")
-                        .WithMany()
+                        .WithMany("Type")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("CashFlowApp.Models.Entities.Role", b =>
+                {
+                    b.Navigation("Type");
                 });
 #pragma warning restore 612, 618
         }

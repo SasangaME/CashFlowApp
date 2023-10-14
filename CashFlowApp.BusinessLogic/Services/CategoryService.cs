@@ -17,12 +17,10 @@ public interface ICategoryService
 public class CategoryService : ICategoryService
 {
     private readonly ICategoryRepository _categoryRepository;
-    private readonly IMapper _mapper;
 
-    public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
+    public CategoryService(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
-        _mapper = mapper;
     }
 
     public async Task<IEnumerable<Category>> FindAll()
@@ -34,13 +32,13 @@ public class CategoryService : ICategoryService
     public async Task<Category> FindById(int id)
     {
         var category = await _categoryRepository.FindById(id);
-        if (category == null)
-            throw new NotFoundException($"category not found for id: {id}");
-        return category;
+        return category ?? throw new NotFoundException($"category not found for id: {id}");
     }
 
     public async Task<Category> Create(Category category)
     {
+        category.CreatedAt = DateTime.Now;
+        category.CreatedBy = -1;
         await _categoryRepository.Create(category);
         return category;
     }
@@ -51,7 +49,7 @@ public class CategoryService : ICategoryService
         existingCategory.Name = category.Name;
         existingCategory.Description = category.Description;
         existingCategory.UpdatedAt = DateTime.Now;
-        existingCategory.UpdatedBy = 0;
+        existingCategory.UpdatedBy = -1;
 
         await _categoryRepository.Update(existingCategory);
         return category;

@@ -30,6 +30,12 @@ public class ExceptionHandlerMiddleware : IMiddleware
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             await context.Response.WriteAsync(e.Message);
         }
+        catch (UnauthorizedException e)
+        {
+            _logger.LogError(e.Message, e);
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            await context.Response.WriteAsync(e.Message);
+        }
         catch (Exception e)
         {
             Console.WriteLine(e);

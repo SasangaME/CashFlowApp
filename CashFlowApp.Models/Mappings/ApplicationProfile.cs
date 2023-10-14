@@ -9,5 +9,8 @@ public class ApplicationProfile : Profile
     public ApplicationProfile()
     {
         CreateMap<Category, CategoryDto>().ReverseMap();
+        CreateMap<Role, RoleDto>().ReverseMap();
+        CreateMap<User, UserDto>().ReverseMap();
+        CreateMap<UserRequest, User>();
     }
 }
