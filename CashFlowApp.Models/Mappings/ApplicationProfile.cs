@@ -10,5 +10,7 @@ public class ApplicationProfile : Profile
     {
         CreateMap<Category, CategoryDto>().ReverseMap();
         CreateMap<Role, RoleDto>().ReverseMap();
+        CreateMap<User, UserDto>().ReverseMap();
+        CreateMap<UserRequest, User>();
     }
 }

@@ -1,11 +1,10 @@
-namespace CashFlowApp.Models.Entities;
+namespace CashFlowApp.Models.DTOs;
 
-public class User : BaseEntity
+public class UserRequest
 {
     public string Username { get; set; } = string.Empty;
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public int RoleId { get; set; }
-    public virtual Role? Role { get; set; }
 }

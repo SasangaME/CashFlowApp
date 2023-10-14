@@ -9,6 +9,7 @@ public static class ServiceResolution
     {
         return services
             .AddScoped<ICategoryRepository, CategoryRepository>()
-            .AddScoped<IRoleRepository, RoleRepository>();
+            .AddScoped<IRoleRepository, RoleRepository>()
+            .AddScoped<IUserRepository, UserRepository>();
     }
 }

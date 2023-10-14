@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CashFlowApp.Repositories\CashFlowApp.Repositories.csproj" />
+      <ProjectReference Include="..\CashFlowApp.Utils\CashFlowApp.Utils.csproj" />
     </ItemGroup>
 
 </Project>
