@@ -25,7 +25,7 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Category
         [HttpGet]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
         {
             var categories = await _categoryService.FindAll();
