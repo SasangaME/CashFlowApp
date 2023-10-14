@@ -9,4 +9,5 @@ public class UserDto
     public string FirstName { get; set; } = String.Empty;
     public string LastName { get; set; } = String.Empty;
     public int RoleId { get; set; }
+    public Role? Role { get; set; }
 }

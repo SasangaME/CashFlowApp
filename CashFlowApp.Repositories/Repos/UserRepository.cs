@@ -28,7 +28,9 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> FindById(int id)
     {
-        return await _cashFlowContext.Users.FindAsync(id);
+        return await _cashFlowContext.Users
+            .Include(q => q.Role)
+            .FirstOrDefaultAsync(q => q.Id == id);
     }
 
     public async Task<int> Create(User user)
