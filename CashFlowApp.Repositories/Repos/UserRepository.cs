@@ -10,6 +10,7 @@ public interface IUserRepository
     Task<User?> FindById(int id);
     Task<int> Create(User user);
     Task Update(User user);
+    Task<User?> FindByUsername(string username);
 }
 
 public class UserRepository : IUserRepository
@@ -44,5 +45,11 @@ public class UserRepository : IUserRepository
     {
         _cashFlowContext.Entry(user).State = EntityState.Modified;
         await _cashFlowContext.SaveChangesAsync();
+    }
+
+    public async Task<User?> FindByUsername(string username)
+    {
+        return await _cashFlowContext.Users.Include(i => i.Role)
+            .FirstOrDefaultAsync(q => q.Username.Equals(username));
     }
 }

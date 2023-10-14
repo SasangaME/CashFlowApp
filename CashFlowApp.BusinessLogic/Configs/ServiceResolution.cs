@@ -11,6 +11,7 @@ public static class ServiceResolution
             .AddScoped<ICategoryService, CategoryService>()
             .AddScoped<ITodoService, TodoService>()
             .AddScoped<IRoleService, RoleService>()
-            .AddScoped<IUserService, UserService>();
+            .AddScoped<IUserService, UserService>()
+            .AddScoped<IAuthService, AuthService>();
     }
 }

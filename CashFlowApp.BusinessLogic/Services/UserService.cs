@@ -11,6 +11,7 @@ public interface IUserService
     Task<User> FindById(int id);
     Task<User> Create(User user);
     Task<User> Update(int id, User user);
+    Task<User> FindByUsername(string username);
 }
 
 public class UserService : IUserService
@@ -55,5 +56,11 @@ public class UserService : IUserService
         existingUser.UpdatedBy = user.Id;
         await _userRepository.Update(existingUser);
         return user;
+    }
+
+    public async Task<User> FindByUsername(string username)
+    {
+        var user = await _userRepository.FindByUsername(username);
+        return user ?? throw new NotFoundException($"user not found for username: {username}");
     }
 }

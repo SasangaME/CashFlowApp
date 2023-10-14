@@ -2,7 +2,7 @@ namespace CashFlowApp.Models.DTOs;
 
 using System.ComponentModel.DataAnnotations;
 
-public class LoginDto
+public class LoginRequest
 {
     [Required(ErrorMessage = "username is required")]
     public string Username { get; set; } = string.Empty;
