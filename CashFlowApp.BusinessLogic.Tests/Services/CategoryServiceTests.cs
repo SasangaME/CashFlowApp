@@ -10,7 +10,7 @@ using Moq;
 public class CategoryServiceTests
 {
     private readonly Mock<ICategoryRepository> _mockRepository = new();
-    
+
     private IEnumerable<Category> GetCategories()
     {
         List<Category> categories = new();
@@ -23,11 +23,13 @@ public class CategoryServiceTests
     public async Task GetAllCategories_ReturnsCategoryList()
     {
         var data = GetCategories();
-        _mockRepository.Setup(m => m.FindAll()).ReturnsAsync(data);
+        int pageNumber = 1;
+        int pageSize = 10;
+        _mockRepository.Setup(m => m.FindAll(pageNumber, pageSize)).ReturnsAsync(data);
         ICategoryService categoryService = new CategoryService(_mockRepository.Object);
-        
-        var result = await categoryService.FindAll();
-        
+
+        var result = await categoryService.FindAll(pageNumber, pageSize);
+
         Assert.NotNull(result);
         Assert.Equal(2, result.Count());
     }
@@ -41,7 +43,7 @@ public class CategoryServiceTests
         ICategoryService categoryService = new CategoryService(_mockRepository.Object);
 
         var result = await categoryService.FindById(id);
-        
+
         Assert.NotNull(result);
         Assert.Equal(id, result.Id);
     }
@@ -55,7 +57,7 @@ public class CategoryServiceTests
         ICategoryService categoryService = new CategoryService(_mockRepository.Object);
 
         var result = await categoryService.Create(data);
-        
+
         Assert.NotNull(result);
         Assert.Equal(data.Name, result.Name);
     }
@@ -70,7 +72,7 @@ public class CategoryServiceTests
         ICategoryService categoryService = new CategoryService(_mockRepository.Object);
 
         var result = await categoryService.Update(id, data);
-        
+
         Assert.NotNull(result);
         Assert.Equal(data.Name, result.Name);
     }
