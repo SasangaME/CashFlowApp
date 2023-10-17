@@ -6,7 +6,7 @@ namespace CashFlowApp.Repositories.Repos;
 
 public interface ICategoryRepository
 {
-    Task<IEnumerable<Category>> FindAll();
+    Task<IEnumerable<Category>> FindAll(int pageNumber, int pageSize);
     Task<Category?> FindById(int id);
     Task<int> Create(Category category);
     Task Update(Category category);
@@ -21,9 +21,12 @@ public class CategoryRepository : ICategoryRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Category>> FindAll()
+    public async Task<IEnumerable<Category>> FindAll(int pageNumber, int pageSize)
     {
-        return await _dbContext.Categories.ToListAsync();
+        return await _dbContext.Categories
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 
     public async Task<Category?> FindById(int id)

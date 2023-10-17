@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlowApp.API.Controllers
 {
+    using CashFlowApp.Models.Constants;
     using Microsoft.AspNetCore.Authorization;
 
     [Route("api/[controller]")]
@@ -25,10 +26,11 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Category
         [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
+        [Authorize(Roles = UserRoles.Admin)]
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> Get([FromQuery] int pageNumber,
+            [FromQuery] int pageSize) 
         {
-            var categories = await _categoryService.FindAll();
+            var categories = await _categoryService.FindAll(pageNumber, pageSize);
             _logger.LogInformation("category list retrieved");
             return Ok(_mapper.Map<IEnumerable<CategoryDto>>(categories));
         }

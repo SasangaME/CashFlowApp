@@ -8,7 +8,7 @@ namespace CashFlowApp.BusinessLogic.Services;
 
 public interface ICategoryService
 {
-    Task<IEnumerable<Category>> FindAll();
+    Task<IEnumerable<Category>> FindAll(int pageNumber, int pageSize);
     Task<Category> FindById(int id);
     Task<Category> Create(Category category);
     Task<Category> Update(int id, Category request);
@@ -23,9 +23,9 @@ public class CategoryService : ICategoryService
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<IEnumerable<Category>> FindAll()
+    public async Task<IEnumerable<Category>> FindAll(int pageNumber, int pageSize)
     {
-        var categories = await _categoryRepository.FindAll();
+        var categories = await _categoryRepository.FindAll(pageNumber, pageSize);
         return categories;
     }
 
