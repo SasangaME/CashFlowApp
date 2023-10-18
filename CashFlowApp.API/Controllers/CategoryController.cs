@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlowApp.API.Controllers
 {
+    using CashFlowApp.API.Filters;
     using CashFlowApp.Models.Constants;
     using Microsoft.AspNetCore.Authorization;
 
@@ -26,7 +27,7 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Category
         [HttpGet]
-        [Authorize(Roles = UserRoles.Admin)]
+        // [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> Get([FromQuery] int pageNumber,
             [FromQuery] int pageSize) 
         {
@@ -37,6 +38,7 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Category/5
         [HttpGet("{id}")]
+        [ApiAuthFilter(2, 3)]
         public async Task<ActionResult<CategoryDto>> Get(int id)
         {
             var category = await _categoryService.FindById(id);
