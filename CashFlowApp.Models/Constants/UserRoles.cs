@@ -2,6 +2,6 @@ namespace CashFlowApp.Models.Constants;
 
 public static class UserRoles
 {
-    public const string Admin = "Admin";
-    public const string User = "User";
+    public const int Admin = 1;
+    public const int User = 2;
 }

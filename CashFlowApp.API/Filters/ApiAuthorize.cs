@@ -1,15 +1,16 @@
 namespace CashFlowApp.API.Filters;
 
 using CashFlowApp.BusinessLogic.Exceptions;
+using CashFlowApp.BusinessLogic.Services;
 using CashFlowApp.Utils.Security;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 
-public class ApiAuthFilter : Attribute, IAsyncActionFilter
+public class ApiAuthorize : Attribute, IAsyncActionFilter
 {
     private readonly int[] _roles;
 
-    public ApiAuthFilter(params int[] roles)
+    public ApiAuthorize(params int[] roles)
     {
         _roles = roles;
     }
@@ -32,6 +33,12 @@ public class ApiAuthFilter : Attribute, IAsyncActionFilter
         {
             throw new UnauthorizedException(errorMessage);
         }
+
+        var userService = context.HttpContext.RequestServices.GetService<IAuthService>();
+        var hasRole = await userService.ValidateUserRole(username, _roles);
+
+        if (!hasRole)
+            throw new UnauthorizedException(errorMessage);
 
         await next();
     }
