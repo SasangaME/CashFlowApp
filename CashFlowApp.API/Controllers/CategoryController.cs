@@ -26,7 +26,7 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Category
         [HttpGet]
-        // [Authorize(Roles = UserRoles.Admin)]
+        [ApiAuthorizationScope(UserRoles.Admin)]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> Get([FromQuery] int pageNumber,
             [FromQuery] int pageSize)
         {
