@@ -1,7 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/sasangaedirisinghe/Library/Caches/JetBrains/Rider2023.2/resharper-host/temp/Rider/vAny/CoverageData/_CashFlowApp.1855498484/Snapshot/snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=43bc6be9_002D90c5_002D45a9_002D8768_002D424199409fd6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAllCategories_ReturnCategoryList" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::0E837660-733D-404D-944E-05E7A5CBB801::net7.0::CashFlowApp.BusinessLogic.Tests.Services.CategoryServiceTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=43bc6be9_002D90c5_002D45a9_002D8768_002D424199409fd6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAllCategories_ReturnCategoryList" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0E837660-733D-404D-944E-05E7A5CBB801::net7.0::CashFlowApp.BusinessLogic.Tests.Services.CategoryServiceTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

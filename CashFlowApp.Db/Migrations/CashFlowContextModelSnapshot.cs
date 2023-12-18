@@ -86,6 +86,49 @@ namespace CashFlowApp.Db.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("CashFlowApp.Models.Entities.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsOutflow")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("CashFlowApp.Models.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -130,6 +173,17 @@ namespace CashFlowApp.Db.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CashFlowApp.Models.Entities.Transaction", b =>
+                {
+                    b.HasOne("CashFlowApp.Models.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("CashFlowApp.Models.Entities.User", b =>
