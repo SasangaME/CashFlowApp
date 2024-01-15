@@ -12,4 +12,5 @@ public class CashFlowContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
 }
