@@ -37,7 +37,7 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Category/5
         [HttpGet("{id}")]
-        [ApiAuthorize(UserRoles.Admin)]
+        [ApiAuthorize(UserRole.Admin)]
         public async Task<ActionResult<CategoryDto>> Get(int id)
         {
             var category = await _categoryService.FindById(id);

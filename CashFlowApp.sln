@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowApp.API", "CashFlowApp.API\CashFlowApp.API.csproj", "{F5AC3A31-D53B-4524-BACB-DB0E36A87C30}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowApp.API", "CashFlowApp.API\CashFlowApp.API.csproj", "{F5AC3A31-D53B-4524-BACB-DB0E36A87C30}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.API", "0.API", "{5A048A4B-D69A-4C77-B5E8-C6B04EE61B17}"
 EndProject
@@ -8,19 +11,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Business", "1.Business", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Db", "2.Db", "{71D31E5A-8519-4558-A5B0-8719F55AAD66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowApp.Models", "CashFlowApp.Models\CashFlowApp.Models.csproj", "{0FB299A4-ED72-4F7F-9F52-4CE47B33060F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowApp.Models", "CashFlowApp.Models\CashFlowApp.Models.csproj", "{0FB299A4-ED72-4F7F-9F52-4CE47B33060F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Utils", "3.Utils", "{D635C2A0-2A7B-407A-A99B-85CE8FFCE158}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowApp.Utils", "CashFlowApp.Utils\CashFlowApp.Utils.csproj", "{A99DC6D9-2B4F-4ED7-8803-682E85F606FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowApp.Utils", "CashFlowApp.Utils\CashFlowApp.Utils.csproj", "{A99DC6D9-2B4F-4ED7-8803-682E85F606FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowApp.Repositories", "CashFlowApp.Repositories\CashFlowApp.Repositories.csproj", "{6D7954D2-FFE8-441A-A200-0DEA850BF665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowApp.Repositories", "CashFlowApp.Repositories\CashFlowApp.Repositories.csproj", "{6D7954D2-FFE8-441A-A200-0DEA850BF665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowApp.BusinessLogic", "CashFlowApp.BusinessLogic\CashFlowApp.BusinessLogic.csproj", "{5A305EFE-13B1-49B4-BEF5-572EEC6365B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowApp.BusinessLogic", "CashFlowApp.BusinessLogic\CashFlowApp.BusinessLogic.csproj", "{5A305EFE-13B1-49B4-BEF5-572EEC6365B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowApp.BusinessLogic.Tests", "CashFlowApp.BusinessLogic.Tests\CashFlowApp.BusinessLogic.Tests.csproj", "{0E837660-733D-404D-944E-05E7A5CBB801}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowApp.BusinessLogic.Tests", "CashFlowApp.BusinessLogic.Tests\CashFlowApp.BusinessLogic.Tests.csproj", "{0E837660-733D-404D-944E-05E7A5CBB801}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowApp.Db", "CashFlowApp.Db\CashFlowApp.Db.csproj", "{AFBE2A57-E158-4E3E-B90D-3509FCE262A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowApp.Db", "CashFlowApp.Db\CashFlowApp.Db.csproj", "{AFBE2A57-E158-4E3E-B90D-3509FCE262A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.HttpRequests", "4.HttpRequests", "{40D53B32-3EA1-4BD9-BF31-EE367528135C}"
+	ProjectSection(SolutionItems) = preProject
+		RoleHttp.rest = RoleHttp.rest
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +64,9 @@ Global
 		{AFBE2A57-E158-4E3E-B90D-3509FCE262A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFBE2A57-E158-4E3E-B90D-3509FCE262A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFBE2A57-E158-4E3E-B90D-3509FCE262A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F5AC3A31-D53B-4524-BACB-DB0E36A87C30} = {5A048A4B-D69A-4C77-B5E8-C6B04EE61B17}

@@ -1,0 +1,10 @@
+POST http://localhost:5028/api/users
+Content-Type: application/json
+
+{
+  "username": "testuser1",
+  "firstName": "test",
+  "lastName": "user",
+  "password": "password",
+  "roleId": 2000
+}

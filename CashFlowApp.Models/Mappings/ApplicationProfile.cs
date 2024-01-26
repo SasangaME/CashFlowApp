@@ -12,5 +12,6 @@ public class ApplicationProfile : Profile
         CreateMap<Role, RoleDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<UserRequest, User>();
+        CreateMap<Transaction, TransactionDto>().ReverseMap();  
     }
 }

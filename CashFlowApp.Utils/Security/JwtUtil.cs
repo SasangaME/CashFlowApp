@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 public static class JwtUtil
 {
-    public static string CreateToken(string key, string username, string role, string name, string issuer,
+    public static string CreateToken(string key, string username, int userId, string issuer,
         string audience)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
@@ -15,9 +15,8 @@ public static class JwtUtil
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, username),
-            new Claim(ClaimTypes.GivenName, name),
-            new Claim(ClaimTypes.Role, role)
+            new Claim(ClaimTypes.Name, username),
+            new Claim(ClaimTypes.NameIdentifier, userId.ToString())
         };
 
         var token = new JwtSecurityToken(issuer: issuer, audience: audience, claims: claims,
@@ -26,7 +25,7 @@ public static class JwtUtil
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public static string? ValidateToken(string token, string secret)
+    public static JwtInfo? ValidateToken(string token, string secret)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes(secret);
@@ -43,12 +42,20 @@ public static class JwtUtil
             }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
-            var userName = jwtToken.Claims.First(q => q.Type == ClaimTypes.NameIdentifier).Value;
-            return userName;
+            var userName = jwtToken.Claims.First(q => q.Type == ClaimTypes.Name).Value;
+            var userId = jwtToken.Claims.First(q => q.Type == ClaimTypes.NameIdentifier).Value;
+            JwtInfo jwtInfo = new() { UserName = userName, UserId = Convert.ToInt32(userId)};
+            return jwtInfo;
         }
         catch (Exception e)
         {
             return null;
         }
     }
+}
+
+public class JwtInfo
+{
+    public string UserName { get; set; }
+    public int UserId { get; set; }
 }

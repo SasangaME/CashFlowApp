@@ -28,14 +28,9 @@ public class ApiAuthorize : Attribute, IAsyncActionFilter
         var config = context.HttpContext.RequestServices.GetService<IConfiguration>();
         var key = config?.GetValue<string>("Jwt:Secret");
 
-        var username = JwtUtil.ValidateToken(token, key);
-        if (username.IsNullOrEmpty())
-        {
-            throw new UnauthorizedException(errorMessage);
-        }
-
+        var jwtInfo = JwtUtil.ValidateToken(token, key) ?? throw new UnauthorizedException(errorMessage);
         var userService = context.HttpContext.RequestServices.GetService<IAuthService>();
-        var hasRole = await userService.ValidateUserRole(username, _roles);
+        var hasRole = await userService.ValidateUserRole(jwtInfo.UserName, _roles);
 
         if (!hasRole)
             throw new UnauthorizedException(errorMessage);
