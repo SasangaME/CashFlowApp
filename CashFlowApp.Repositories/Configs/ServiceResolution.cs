@@ -10,6 +10,7 @@ public static class ServiceResolution
         return services
             .AddScoped<ICategoryRepository, CategoryRepository>()
             .AddScoped<IRoleRepository, RoleRepository>()
-            .AddScoped<IUserRepository, UserRepository>();
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<ITransactionRepository, TransactionRepository>();
     }
 }

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace CashFlowApp.BusinessLogic.Services;
 
 using CashFlowApp.BusinessLogic.Exceptions;
@@ -11,6 +13,7 @@ public interface IAuthService
 {
     Task<LoginResponse> Login(LoginRequest request);
     Task<bool> ValidateUserRole(string username, int[] roles);
+    int GetUserIdFromContext(HttpContext context);
 }
 
 public class AuthService : IAuthService
@@ -29,16 +32,18 @@ public class AuthService : IAuthService
         var user = await _userService.FindByUsername(request.Username);
         var isAuthenticate = AuthenticateUser(user, request);
         if (!isAuthenticate)
+        {
             throw new UnauthorizedException("incorrect password");
-
+        }
+#nullable disable
         var token = JwtUtil.CreateToken(
             key: _configuration["Jwt:Secret"],
             username: user.Username,
-            role: user.Role.Name,
+            userId: user.Id,
             issuer: _configuration["Jwt:ValidIssuer"],
-            audience: _configuration["Jwt:ValidAudience"],
-            name: $"{user.FirstName} {user.LastName}"
+            audience: _configuration["Jwt:ValidAudience"]
         );
+#nullable enable
         return new LoginResponse { Token = token };
     }
 
@@ -47,8 +52,9 @@ public class AuthService : IAuthService
         var user = await _userService.FindByUsername(username)
                    ?? throw new UnauthorizedException("user not found");
 
+#pragma warning disable CS8602
         var userRole = user.Role.Id;
-        if (userRole == UserRoles.Admin)
+        if (userRole == UserRole.Admin)
             return true;
 
         var isAuthorized = false;
@@ -68,5 +74,11 @@ public class AuthService : IAuthService
     {
         var passwordHash = PasswordHash.HashPassword(request.Password);
         return user.Password.Equals(passwordHash);
+    }
+
+    public int GetUserIdFromContext(HttpContext context)
+    {
+        var userId = context.Items["UserId"] ?? throw new ValidationException("user id not found");
+        return Convert.ToInt32(userId);
     }
 }
