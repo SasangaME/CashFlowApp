@@ -2,15 +2,16 @@ namespace CashFlowApp.API.Filters;
 
 using CashFlowApp.BusinessLogic.Exceptions;
 using CashFlowApp.BusinessLogic.Services;
+using CashFlowApp.Models.Enums;
 using CashFlowApp.Utils.Security;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 
 public class ApiAuthorize : Attribute, IAsyncActionFilter
 {
-    private readonly int[] _roles;
+    private readonly RoleEnum[] _roles;
 
-    public ApiAuthorize(params int[] roles)
+    public ApiAuthorize(params RoleEnum[] roles)
     {
         _roles = roles;
     }
