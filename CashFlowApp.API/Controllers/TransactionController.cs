@@ -1,16 +1,16 @@
 using AutoMapper;
 using CashFlowApp.API.Filters;
 using CashFlowApp.BusinessLogic.Services;
-using CashFlowApp.Models.Constants;
 using CashFlowApp.Models.DTOs;
 using CashFlowApp.Models.Entities;
+using CashFlowApp.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlowApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiAuthorize(UserRole.User)]
+    [ApiAuthorize(RoleEnum.User)]
     public class TransactionController : ControllerBase
     {
         private readonly ILogger<TransactionController> _logger;

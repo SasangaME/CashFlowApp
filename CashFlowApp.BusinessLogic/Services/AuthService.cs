@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Http;
 namespace CashFlowApp.BusinessLogic.Services;
 
 using CashFlowApp.BusinessLogic.Exceptions;
-using CashFlowApp.Models.Constants;
 using CashFlowApp.Models.DTOs;
 using CashFlowApp.Models.Entities;
+using CashFlowApp.Models.Enums;
 using CashFlowApp.Utils.Security;
 using Microsoft.Extensions.Configuration;
 
 public interface IAuthService
 {
     Task<LoginResponse> Login(LoginRequest request);
-    Task<bool> ValidateUserRole(string username, int[] roles);
+    Task<bool> ValidateUserRole(string username, RoleEnum[] roles);
     int GetUserIdFromContext(HttpContext context);
 }
 
@@ -47,14 +47,14 @@ public class AuthService : IAuthService
         return new LoginResponse { Token = token };
     }
 
-    public async Task<bool> ValidateUserRole(string username, int[] roles)
+    public async Task<bool> ValidateUserRole(string username, RoleEnum[] roles)
     {
         var user = await _userService.FindByUsername(username)
                    ?? throw new UnauthorizedException("user not found");
 
 #pragma warning disable CS8602
-        var userRole = user.Role.Id;
-        if (userRole == UserRole.Admin)
+        var userRole = user.Role.RoleEnum;
+        if (userRole == RoleEnum.Admin)
             return true;
 
         var isAuthorized = false;

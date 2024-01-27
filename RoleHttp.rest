@@ -1,10 +1,21 @@
-POST http://localhost:5028/api/users
+POST http://localhost:5028/api/roles
 Content-Type: application/json
 
 {
-  "username": "testuser1",
-  "firstName": "test",
-  "lastName": "user",
-  "password": "password",
-  "roleId": 2000
+    "id": 0,
+    "name": "SuperAdmin",
+    "description": "Super Admin",
+    "roleEnum": 1000
+}
+
+###
+
+POST http://localhost:5028/api/roles
+Content-Type: application/json
+
+{
+    "id": 0,
+    "name": "SuperAdmin",
+    "description": "Super Admin",
+    "roleEnum": 1000
 }

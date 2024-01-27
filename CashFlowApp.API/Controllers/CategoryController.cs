@@ -3,11 +3,12 @@ using CashFlowApp.BusinessLogic.Services;
 using CashFlowApp.Models.DTOs;
 using CashFlowApp.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using CashFlowApp.API.Filters;
+using CashFlowApp.Models.Enums;
 
 namespace CashFlowApp.API.Controllers
 {
-    using CashFlowApp.API.Filters;
-    using CashFlowApp.Models.Constants;
+   
 
     [Route("api/[controller]")]
     [ApiController]
@@ -37,7 +38,7 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Category/5
         [HttpGet("{id}")]
-        [ApiAuthorize(UserRole.Admin)]
+        [ApiAuthorize(RoleEnum.Admin)]
         public async Task<ActionResult<CategoryDto>> Get(int id)
         {
             var category = await _categoryService.FindById(id);
@@ -67,6 +68,7 @@ namespace CashFlowApp.API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }
