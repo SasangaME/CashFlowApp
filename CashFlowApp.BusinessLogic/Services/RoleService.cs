@@ -34,6 +34,11 @@ public class RoleService : IRoleService
 
     public async Task<Role> Create(Role role)
     {
+        if (await _roleRepository.IsRoleExists(role.RoleEnum))
+        {
+            throw new ValidationException("role already exists");
+        }
+
         role.CreatedAt = DateTime.Now;
         role.CreatedBy = -1;
         role.Id = await _roleRepository.Create(role);

@@ -14,8 +14,24 @@ POST http://localhost:5028/api/roles
 Content-Type: application/json
 
 {
-    "id": 0,
-    "name": "SuperAdmin",
-    "description": "Super Admin",
-    "roleEnum": 1000
+"id": 0,
+"name": "Admin",
+"description": "Admin",
+"roleEnum": 1001
 }
+
+###
+
+POST http://localhost:5028/api/roles
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "User",
+  "description": "User",
+  "roleEnum": 2000
+}
+
+###
+GET http://localhost:5028/api/roles
+Content-Type: application/json

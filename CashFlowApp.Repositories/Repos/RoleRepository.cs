@@ -1,3 +1,5 @@
+using CashFlowApp.Models.Enums;
+
 namespace CashFlowApp.Repositories.Repos;
 
 using CashFlowApp.Models.Entities;
@@ -10,6 +12,7 @@ public interface IRoleRepository
     Task<Role?> FindById(int id);
     Task<int> Create(Role role);
     Task Update(Role role);
+    Task<bool> IsRoleExists(RoleEnum roleEnum);
 }
 
 public class RoleRepository : IRoleRepository
@@ -42,5 +45,10 @@ public class RoleRepository : IRoleRepository
     {
         _cashFlowContext.Entry(role).State = EntityState.Modified;
         await _cashFlowContext.SaveChangesAsync();
+    }
+
+    public async Task<bool> IsRoleExists(RoleEnum roleEnum)
+    {
+        return await _cashFlowContext.Roles.AnyAsync(f => f.RoleEnum == roleEnum);
     }
 }
