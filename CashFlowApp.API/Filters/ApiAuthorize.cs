@@ -36,6 +36,8 @@ public class ApiAuthorize : Attribute, IAsyncActionFilter
         if (!hasRole)
             throw new UnauthorizedException(errorMessage);
 
+        context.HttpContext.Items.Add("userId", jwtInfo.UserId);
+        context.HttpContext.Items.Add("userId", jwtInfo.UserId);
         await next();
     }
 }
