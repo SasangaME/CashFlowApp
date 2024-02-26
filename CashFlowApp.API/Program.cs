@@ -1,13 +1,10 @@
-using System.Text;
 using AutoMapper;
 using CashFlowApp.API.Configs;
 using CashFlowApp.API.Middleware;
 using CashFlowApp.BusinessLogic.Services;
 using CashFlowApp.Models.Mappings;
 using CashFlowApp.Repositories.Db;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
