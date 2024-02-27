@@ -1,6 +1,5 @@
 namespace CashFlowApp.BusinessLogic.Services;
 
-using System.Text.Json.Serialization;
 using CashFlowApp.Models.DTOs;
 using Newtonsoft.Json;
 
