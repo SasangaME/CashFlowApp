@@ -12,41 +12,43 @@ public interface ITransactionService
     Task<Transaction> Update(int id, int userId, Transaction transaction);
 }
 
-public class TransactionService : ITransactionService
+public class TransactionService(ITransactionRepository transactionRepository, ICategoryService categoryService) : ITransactionService
 {
-    private readonly ITransactionRepository _transactionRepository;
-    private readonly ICategoryService _categoryService;
+    //private readonly ITransactionRepository _transactionRepository;
+    //private readonly ICategoryService _categoryService;
 
-    public TransactionService(ITransactionRepository transactionRepository, ICategoryService categoryService)
-    {
-        _transactionRepository = transactionRepository;
-        _categoryService = categoryService;
-    }
+    //public TransactionService(ITransactionRepository transactionRepository, ICategoryService categoryService)
+    //{
+    //    _transactionRepository = transactionRepository;
+    //    _categoryService = categoryService;
+    //}
 
     public async Task<IEnumerable<Transaction>> FindAll(int userId, int pageNumber, int pageSize)
     {
-        return await _transactionRepository.FindAll(userId, pageNumber, pageSize);
+        return await transactionRepository.FindAll(userId, pageNumber, pageSize);
     }
 
     public async Task<Transaction> FindById(int id, int userId)
     {
-        return await _transactionRepository.FindById(id, userId) ??
+        return await transactionRepository.FindById(id, userId) ??
                throw new NotFoundException($"transaction not found for transaction id: {id}");
     }
 
     public async Task<Transaction> Create(int userId, Transaction transaction)
     {
         transaction.CreatedBy = userId;
-        var category = await _categoryService.FindById(transaction.CategoryId);
+        var category = await categoryService.FindById(transaction.CategoryId);
         transaction.Category = category;
-        transaction.Id = await _transactionRepository.Create(transaction);
+        transaction.CreatedAt = DateTime.UtcNow;
+        transaction.CreatedBy = userId;
+        transaction.Id = await transactionRepository.Create(transaction);
         return transaction;
     }
 
     public async Task<Transaction> Update(int id, int userId, Transaction transaction)
     {
-        var existingTransaction = await _transactionRepository.FindById(id, userId);
-        var category = await _categoryService.FindById(transaction.CategoryId);
+        var existingTransaction = await transactionRepository.FindById(id, userId);
+        var category = await categoryService.FindById(transaction.CategoryId);
         existingTransaction.Category = category;
         existingTransaction.Name = transaction.Name;
         existingTransaction.Description = transaction.Description;
@@ -54,7 +56,7 @@ public class TransactionService : ITransactionService
         existingTransaction.IsOutflow = transaction.IsOutflow;
         existingTransaction.UpdatedBy = userId;
         existingTransaction.UpdatedAt = DateTime.Now;
-        await _transactionRepository.Update(existingTransaction);
+        await transactionRepository.Update(existingTransaction);
         return transaction;
     }
 }
