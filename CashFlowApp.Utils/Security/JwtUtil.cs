@@ -44,7 +44,7 @@ public static class JwtUtil
             var jwtToken = (JwtSecurityToken)validatedToken;
             var userName = jwtToken.Claims.First(q => q.Type == ClaimTypes.Name).Value;
             var userId = jwtToken.Claims.First(q => q.Type == ClaimTypes.NameIdentifier).Value;
-            JwtInfo jwtInfo = new() { UserName = userName, UserId = Convert.ToInt32(userId)};
+            JwtInfo jwtInfo = new() { Username = userName, UserId = Convert.ToInt32(userId)};
             return jwtInfo;
         }
         catch (Exception e)
@@ -56,6 +56,6 @@ public static class JwtUtil
 
 public class JwtInfo
 {
-    public string UserName { get; set; }
-    public int UserId { get; set; }
+    public string Username { get; set; } = string.Empty;
+    public int UserId { get; set; } 
 }

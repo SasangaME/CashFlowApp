@@ -14,15 +14,6 @@ public interface ITransactionService
 
 public class TransactionService(ITransactionRepository transactionRepository, ICategoryService categoryService) : ITransactionService
 {
-    //private readonly ITransactionRepository _transactionRepository;
-    //private readonly ICategoryService _categoryService;
-
-    //public TransactionService(ITransactionRepository transactionRepository, ICategoryService categoryService)
-    //{
-    //    _transactionRepository = transactionRepository;
-    //    _categoryService = categoryService;
-    //}
-
     public async Task<IEnumerable<Transaction>> FindAll(int userId, int pageNumber, int pageSize)
     {
         return await transactionRepository.FindAll(userId, pageNumber, pageSize);

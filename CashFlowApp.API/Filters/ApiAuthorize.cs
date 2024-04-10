@@ -7,15 +7,8 @@ using CashFlowApp.Utils.Security;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 
-public class ApiAuthorize : Attribute, IAsyncActionFilter
+public class ApiAuthorize(params RoleEnum[] roles) : Attribute, IAsyncActionFilter
 {
-    private readonly RoleEnum[] _roles;
-
-    public ApiAuthorize(params RoleEnum[] roles)
-    {
-        _roles = roles;
-    }
-
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         string? authorizeHeader = context.HttpContext.Request.Headers["Authorization"];
@@ -31,12 +24,12 @@ public class ApiAuthorize : Attribute, IAsyncActionFilter
 
         var jwtInfo = JwtUtil.ValidateToken(token, key) ?? throw new UnauthorizedException(errorMessage);
         var userService = context.HttpContext.RequestServices.GetService<IAuthService>();
-        var hasRole = await userService.ValidateUserRole(jwtInfo.UserName, _roles);
+# nullable disable
+        var hasRole = await userService.ValidateUserRole(jwtInfo.Username, roles);
 
         if (!hasRole)
             throw new UnauthorizedException(errorMessage);
 
-        context.HttpContext.Items.Add("userId", jwtInfo.UserId);
         context.HttpContext.Items.Add("userId", jwtInfo.UserId);
         await next();
     }
