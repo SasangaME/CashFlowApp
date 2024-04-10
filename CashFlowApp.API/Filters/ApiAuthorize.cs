@@ -4,11 +4,15 @@ using CashFlowApp.BusinessLogic.Exceptions;
 using CashFlowApp.BusinessLogic.Services;
 using CashFlowApp.Models.Enums;
 using CashFlowApp.Utils.Security;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 
 public class ApiAuthorize(params RoleEnum[] roles) : Attribute, IAsyncActionFilter
 {
+    [Inject]
+    public IAuthService AuthService { get; set; }
+
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         string? authorizeHeader = context.HttpContext.Request.Headers["Authorization"];
@@ -23,9 +27,7 @@ public class ApiAuthorize(params RoleEnum[] roles) : Attribute, IAsyncActionFilt
         var key = config?.GetValue<string>("Jwt:Secret");
 
         var jwtInfo = JwtUtil.ValidateToken(token, key) ?? throw new UnauthorizedException(errorMessage);
-        var userService = context.HttpContext.RequestServices.GetService<IAuthService>();
-# nullable disable
-        var hasRole = await userService.ValidateUserRole(jwtInfo.Username, roles);
+        var hasRole = await AuthService.ValidateUserRole(jwtInfo.Username, roles);
 
         if (!hasRole)
             throw new UnauthorizedException(errorMessage);

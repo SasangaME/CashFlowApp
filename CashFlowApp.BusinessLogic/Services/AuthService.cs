@@ -13,7 +13,6 @@ public interface IAuthService
 {
     Task<LoginResponse> Login(LoginRequest request);
     Task<bool> ValidateUserRole(string username, RoleEnum[] roles);
-    int GetUserIdFromContext(HttpContext context);
 }
 
 public class AuthService : IAuthService
@@ -74,11 +73,5 @@ public class AuthService : IAuthService
     {
         var passwordHash = PasswordHash.HashPassword(request.Password);
         return user.Password.Equals(passwordHash);
-    }
-
-    public int GetUserIdFromContext(HttpContext context)
-    {
-        var userId = context.Items["UserId"] ?? throw new ValidationException("user id not found");
-        return Convert.ToInt32(userId);
     }
 }

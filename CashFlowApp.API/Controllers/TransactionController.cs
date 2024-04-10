@@ -4,6 +4,7 @@ using CashFlowApp.BusinessLogic.Services;
 using CashFlowApp.Models.DTOs;
 using CashFlowApp.Models.Entities;
 using CashFlowApp.Models.Enums;
+using CashFlowApp.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlowApp.API.Controllers
@@ -12,10 +13,9 @@ namespace CashFlowApp.API.Controllers
     [ApiController]
     [ApiAuthorize(RoleEnum.User)]
     public class TransactionController(ILogger<TransactionController> logger, ITransactionService transactionService,
-        IAuthService authService, IMapper mapper, IHttpContextAccessor httpContextAccessor) : ControllerBase
+        IMapper mapper, IHttpContextAccessor httpContextAccessor) : ControllerBase
     {
-
-        private readonly int _userId = authService.GetUserIdFromContext(httpContextAccessor.HttpContext);
+        private readonly int _userId = AuthUtil.GetUserIdFromContext(httpContextAccessor.HttpContext);
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Transaction>>> Get([FromQuery] int pageNumber, [FromQuery] int pageSize)
