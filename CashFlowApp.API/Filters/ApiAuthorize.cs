@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 
+[AttributeUsage(AttributeTargets.All)]
 public class ApiAuthorize(params RoleEnum[] roles) : Attribute, IAsyncActionFilter
 {
     [Inject]

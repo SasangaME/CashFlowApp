@@ -20,8 +20,8 @@ public class ExceptionHandler : IExceptionHandler
         {
             Status = statusCode,
             Type = exception.GetType().Name,
-            Title = "An unexpected error occurred",
-            Detail = exception.Message,
+            Title = exception.Message,
+            Detail = exception.StackTrace,
             Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}"
         });
 
