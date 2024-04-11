@@ -35,5 +35,5 @@ Content-Type: application/json
 }
 
 ###
-GET {{host_address}}/roles
+GET {{host_address}}/roles/5
 Content-Type: application/json

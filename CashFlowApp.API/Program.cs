@@ -15,7 +15,8 @@ builder.Services.AddDbContext<CashFlowContext>(options =>
 var mapperConfig = new MapperConfiguration(config => { config.AddProfile(new ApplicationProfile()); });
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
-builder.Services.AddTransient<ExceptionHandlerMiddleware>();
+builder.Services.AddExceptionHandler<ExceptionHandler>();
+//builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 
 builder.Services.AddHttpClient<ITodoService, TodoService>();
 
@@ -52,7 +53,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseExceptionHandler(opt => { });
+//app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
