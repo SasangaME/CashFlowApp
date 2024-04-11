@@ -5,6 +5,7 @@ using CashFlowApp.Models.DTOs;
 
 namespace CashFlowApp.API.Middleware;
 
+[Obsolete]
 public class ExceptionHandlerMiddleware : IMiddleware
 {
     private readonly ILogger<ExceptionHandlerMiddleware> _logger;
