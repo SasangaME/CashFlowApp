@@ -1,8 +1,6 @@
-using AutoMapper;
 using CashFlowApp.BusinessLogic.Exceptions;
 using CashFlowApp.Models.Entities;
 using CashFlowApp.Repositories.Repos;
-using Microsoft.Extensions.Logging;
 
 namespace CashFlowApp.BusinessLogic.Services;
 

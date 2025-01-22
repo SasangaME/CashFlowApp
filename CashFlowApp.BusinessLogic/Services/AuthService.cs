@@ -34,15 +34,13 @@ public class AuthService : IAuthService
         {
             throw new UnauthorizedException("incorrect password");
         }
-#nullable disable
         var token = JwtUtil.CreateToken(
-            key: _configuration["Jwt:Secret"],
+            key: _configuration["Jwt:Secret"] ?? string.Empty,
             username: user.Username,
             userId: user.Id,
-            issuer: _configuration["Jwt:ValidIssuer"],
-            audience: _configuration["Jwt:ValidAudience"]
+            issuer: _configuration["Jwt:ValidIssuer"] ?? string.Empty,
+            audience: _configuration["Jwt:ValidAudience"] ?? string.Empty
         );
-#nullable enable
         return new LoginResponse { Token = token };
     }
 
