@@ -11,9 +11,6 @@ using Microsoft.IdentityModel.Tokens;
 [AttributeUsage(AttributeTargets.All)]
 public class ApiAuthorize(params RoleEnum[] roles) : Attribute, IAsyncActionFilter
 {
-    [Inject]
-    public IAuthService AuthService { get; set; }
-
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         string? authorizeHeader = context.HttpContext.Request.Headers["Authorization"];
@@ -28,7 +25,9 @@ public class ApiAuthorize(params RoleEnum[] roles) : Attribute, IAsyncActionFilt
         var key = config?.GetValue<string>("Jwt:Secret");
 
         var jwtInfo = JwtUtil.ValidateToken(token, key) ?? throw new UnauthorizedException(errorMessage);
-        var hasRole = await AuthService.ValidateUserRole(jwtInfo.Username, roles);
+
+        var authService = context.HttpContext.RequestServices.GetService<IAuthService>();
+        var hasRole = await authService.ValidateUserRole(jwtInfo.Username, roles);
 
         if (!hasRole)
             throw new UnauthorizedException(errorMessage);

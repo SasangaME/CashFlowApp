@@ -46,6 +46,7 @@ public class CategoryController : ControllerBase
 
     // POST: api/Category
     [HttpPost]
+    [ApiAuthorize(RoleEnum.Admin)]
     public async Task<ActionResult<CategoryDto>> Post([FromBody] CategoryDto request)
     {
         var response = await _categoryService.Create(_mapper.Map<Category>(request));

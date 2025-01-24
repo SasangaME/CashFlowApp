@@ -1,0 +1,15 @@
+@host_address =  http://localhost:5028/api
+@jwt_token = 
+
+###
+
+Post {{host_address}}/category
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+{
+  "id": 0,
+  "name": "Category 1",
+  "description": "Category 2 Description",
+  "categoryEnum": 1001
+}
+
