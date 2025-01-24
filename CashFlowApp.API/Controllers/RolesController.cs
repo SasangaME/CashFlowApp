@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CashFlowApp.API.Controllers
 {
     using AutoMapper;
+    using CashFlowApp.API.Filters;
     using CashFlowApp.BusinessLogic.Services;
     using CashFlowApp.Models.DTOs;
     using CashFlowApp.Models.Entities;
@@ -29,6 +30,7 @@ namespace CashFlowApp.API.Controllers
 
         // GET: api/Roles
         [HttpGet]
+        [ApiAuthorize(Models.Enums.RoleEnum.Admin)]
         public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
         {
             var roles = await _roleService.FindAll();

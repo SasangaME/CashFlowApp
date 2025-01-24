@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CashFlowApp.Models\CashFlowApp.Models.csproj" />
+      <ProjectReference Include="..\CashFlowApp.Utils\CashFlowApp.Utils.csproj" />
     </ItemGroup>
 
 </Project>

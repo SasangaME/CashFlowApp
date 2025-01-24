@@ -27,6 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowApp.Db", "CashFlowA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.HttpRequests", "4.HttpRequests", "{40D53B32-3EA1-4BD9-BF31-EE367528135C}"
 	ProjectSection(SolutionItems) = preProject
+		Category.rest = Category.rest
 		RoleHttp.rest = RoleHttp.rest
 	EndProjectSection
 EndProject
@@ -76,5 +77,8 @@ Global
 		{5A305EFE-13B1-49B4-BEF5-572EEC6365B8} = {182C8B1C-B087-4D75-A026-DA233052CF31}
 		{0E837660-733D-404D-944E-05E7A5CBB801} = {182C8B1C-B087-4D75-A026-DA233052CF31}
 		{AFBE2A57-E158-4E3E-B90D-3509FCE262A9} = {71D31E5A-8519-4558-A5B0-8719F55AAD66}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {436CA9EE-277A-4F8E-AE6D-881BA5B2BCB2}
 	EndGlobalSection
 EndGlobal

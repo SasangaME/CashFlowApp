@@ -1,4 +1,13 @@
 @host_address =  http://localhost:5028/api
+@jwt_token = 
+
+###
+
+GET {{host_address}}/roles
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
 
 POST {{host_address}}/roles
 Content-Type: application/json
