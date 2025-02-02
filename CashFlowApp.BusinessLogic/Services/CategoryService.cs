@@ -35,8 +35,7 @@ public class CategoryService : ICategoryService
 
     public async Task<Category> Create(Category category)
     {
-        //category.CreatedAt = DateTime.Now;
-        //category.CreatedBy = -1;
+        category.CreatedBy = -1;
         await _categoryRepository.Create(category);
         return category;
     }

@@ -13,7 +13,9 @@ public class CashFlowContext(DbContextOptions<CashFlowContext> options) : DbCont
 
     private void SaveAuditData()
     {
-        var entries = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+        var entries = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity
+            && (x.State == EntityState.Added || x.State == EntityState.Modified));
+
         foreach (var entry in entries)
         {
             if (entry.State == EntityState.Added)
